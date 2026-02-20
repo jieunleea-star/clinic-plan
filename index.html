@@ -840,6 +840,8 @@
             <div class="progress-step">3</div>
             <div class="progress-line"></div>
             <div class="progress-step">4</div>
+            <div class="progress-line"></div>
+            <div class="progress-step">5</div>
         </div>
 
         <div class="card">
@@ -935,6 +937,8 @@
             <div class="progress-step">3</div>
             <div class="progress-line"></div>
             <div class="progress-step">4</div>
+            <div class="progress-line"></div>
+            <div class="progress-step">5</div>
         </div>
 
         <div class="card">
@@ -942,7 +946,7 @@
             <h2>급여 매출을<br>설계해보세요</h2>
             <p class="desc">
                 목표 급여 매출: <strong id="insTarget">0만원</strong> (일 <strong id="insDailyTarget">0만원</strong>)<br>
-                객단가와 일 환자수를 조정하여 설계하세요.
+                환자수와 추나 건수를 조정하여 설계하세요.
             </p>
 
             <div class="detail-table">
@@ -953,42 +957,61 @@
                     <span style="text-align:right">일 매출</span>
                 </div>
                 <div class="detail-row">
-                    <span class="item-name">65세↑</span>
+                    <span class="item-name">65세 이상</span>
                     <span class="item-price"><input type="number" id="ins_senior_price" value="2.5" step="0.5" oninput="calcInsurance()"></span>
-                    <span class="item-count"><input type="number" id="ins_senior_count" value="14" min="0" oninput="calcInsurance()"></span>
-                    <span class="item-total" id="ins_senior_total">35만원</span>
+                    <span class="item-count"><input type="number" id="ins_senior_count" value="0" min="0" oninput="calcInsurance()"></span>
+                    <span class="item-total" id="ins_senior_total">0만원</span>
                 </div>
                 <div class="detail-row">
-                    <span class="item-name">비추나</span>
+                    <span class="item-name">65세 미만</span>
                     <span class="item-price"><input type="number" id="ins_general_price" value="5" step="0.5" oninput="calcInsurance()"></span>
-                    <span class="item-count"><input type="number" id="ins_general_count" value="30" min="0" oninput="calcInsurance()"></span>
-                    <span class="item-total" id="ins_general_total">150만원</span>
+                    <span class="item-count"><input type="number" id="ins_general_count" value="0" min="0" oninput="calcInsurance()"></span>
+                    <span class="item-total" id="ins_general_total">0만원</span>
+                </div>
+            </div>
+
+            <div style="border-top:2px dashed var(--border); margin:16px 0 8px; padding-top:12px;">
+                <div style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-bottom:4px;">추나 (총 환자수 미포함)</div>
+            </div>
+
+            <div class="detail-table">
+                <div class="detail-row header">
+                    <span>구분</span>
+                    <span>단가</span>
+                    <span>일 건수</span>
+                    <span style="text-align:right">일 매출</span>
                 </div>
                 <div class="detail-row">
-                    <span class="item-name">추나</span>
-                    <span class="item-price"><input type="number" id="ins_chuna_price" value="8" step="0.5" oninput="calcInsurance()"></span>
-                    <span class="item-count"><input type="number" id="ins_chuna_count" value="10" min="0" oninput="calcInsurance()"></span>
-                    <span class="item-total" id="ins_chuna_total">80만원</span>
+                    <span class="item-name">단순추나</span>
+                    <span class="item-price" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;">26,330원</span>
+                    <span class="item-count"><input type="number" id="ins_simple_chuna_count" value="0" min="0" oninput="calcInsurance()"></span>
+                    <span class="item-total" id="ins_simple_chuna_total">0만원</span>
+                </div>
+                <div class="detail-row">
+                    <span class="item-name">복잡추나</span>
+                    <span class="item-price" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;">44,450원</span>
+                    <span class="item-count"><input type="number" id="ins_complex_chuna_count" value="0" min="0" oninput="calcInsurance()"></span>
+                    <span class="item-total" id="ins_complex_chuna_total">0만원</span>
                 </div>
             </div>
 
             <div class="target-comparison" id="insComparison">
                 <div>
                     <span class="tc-label">일 급여 합계</span>
-                    <div style="font-size:11px; color:inherit; opacity:0.8; margin-top:2px;">일 환자 <strong id="insDailyPatients">54</strong>명</div>
+                    <div style="font-size:11px; color:inherit; opacity:0.8; margin-top:2px;">일 환자 <strong id="insDailyPatients">0</strong>명 (추나 제외)</div>
                 </div>
-                <span class="tc-value" id="insDailyTotal">265만원</span>
+                <span class="tc-value" id="insDailyTotal">0만원</span>
             </div>
         </div>
 
         <div class="btn-group">
             <button class="btn-back" onclick="goToStep('step1')">이전</button>
-            <button class="btn-primary" onclick="goToStep('step3')">다음: 비급여 설계</button>
+            <button class="btn-primary" onclick="goToStep('step3')">다음: 자보 설계</button>
         </div>
     </div>
 </div>
 
-<!-- ========== STEP 3: 비급여 상세 설계 ========== -->
+<!-- ========== STEP 3: 자보 설계 ========== -->
 <div id="step3" class="step">
     <div class="container">
         <div class="progress-bar">
@@ -999,13 +1022,85 @@
             <div class="progress-step active">3</div>
             <div class="progress-line"></div>
             <div class="progress-step">4</div>
+            <div class="progress-line"></div>
+            <div class="progress-step">5</div>
         </div>
 
         <div class="card">
             <div class="card-header">STEP 3</div>
+            <h2>자보 매출을<br>설계해보세요</h2>
+            <p class="desc">
+                목표 자보 매출: <strong id="autoInsTarget">0만원</strong><br>
+                월 초진수와 추가 내원, 한약 처방 횟수를 입력하세요.
+            </p>
+
+            <div class="input-group">
+                <label>월 자보 초진수</label>
+                <div class="input-wrapper">
+                    <input type="number" id="auto_first_count" value="0" min="0" oninput="calcAutoInsurance()">
+                    <span class="unit">명</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>1인당 추가 내원 횟수</label>
+                <div class="input-wrapper">
+                    <input type="number" id="auto_revisit_per" value="0" min="0" step="0.1" oninput="calcAutoInsurance()">
+                    <span class="unit">회</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>1인당 한약 처방 횟수</label>
+                <div class="input-wrapper">
+                    <input type="number" id="auto_herbal_per" value="0" min="0" step="0.1" oninput="calcAutoInsurance()">
+                    <span class="unit">회</span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 12px;background:var(--bg);border-radius:8px;font-size:13px;margin-bottom:6px;"><span style="color:var(--text-secondary)">초진 단가</span><span style="font-weight:700">9.6만원</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 12px;background:var(--bg);border-radius:8px;font-size:13px;margin-bottom:6px;"><span style="color:var(--text-secondary)">재진 단가</span><span style="font-weight:700">9.0만원</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 12px;background:var(--bg);border-radius:8px;font-size:13px;margin-bottom:6px;"><span style="color:var(--text-secondary)">한약 단가</span><span style="font-weight:700">10.3만원</span></div>
+
+            <div class="divider"></div>
+            <div id="autoInsBreakdown" style="display:none;">
+                <div style="display:flex;justify-content:space-between;padding:6px 12px;font-size:13px;margin-bottom:4px;"><span style="color:var(--text-secondary)">초진 매출</span><span style="font-weight:700" id="autoInsFirstRev">0만원</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 12px;font-size:13px;margin-bottom:4px;"><span style="color:var(--text-secondary)">추가내원 매출</span><span style="font-weight:700" id="autoInsRevisitRev">0만원</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 12px;font-size:13px;margin-bottom:4px;"><span style="color:var(--text-secondary)">한약 매출</span><span style="font-weight:700" id="autoInsHerbalRev">0만원</span></div>
+            </div>
+
+            <div class="target-comparison" id="autoInsComparison">
+                <span class="tc-label">월 자보 합계</span>
+                <span class="tc-value" id="autoInsTotal">0만원</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-back" onclick="goToStep('step2')">이전</button>
+            <button class="btn-primary" onclick="goToStep('step4')">다음: 비급여 설계</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== STEP 4: 비급여 상세 설계 ========== -->
+<div id="step4" class="step">
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-step done">1</div>
+            <div class="progress-line done"></div>
+            <div class="progress-step done">2</div>
+            <div class="progress-line done"></div>
+            <div class="progress-step done">3</div>
+            <div class="progress-line done"></div>
+            <div class="progress-step active">4</div>
+            <div class="progress-line"></div>
+            <div class="progress-step">5</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">STEP 4</div>
             <h2>비급여 매출을<br>설계해보세요</h2>
             <p class="desc">
-                목표 비급여 매출: <strong id="nonInsTarget">0만원</strong> (일 <strong id="nonInsDailyTarget">0만원</strong>)<br>
+                목표 비급여 매출: <strong id="nonInsTarget">0만원</strong><br>
                 객단가는 예시이며, 자유롭게 수정 가능합니다.
             </p>
 
@@ -1013,8 +1108,8 @@
                 <div class="detail-row header">
                     <span>항목</span>
                     <span>객단가(만원)</span>
-                    <span>일 건수</span>
-                    <span style="text-align:right">일 매출</span>
+                    <span>월 건수</span>
+                    <span style="text-align:right">월 매출</span>
                 </div>
                 <div class="detail-row" data-ni="gongjindan">
                     <span class="item-name">공진단</span>
@@ -1036,7 +1131,7 @@
                 </div>
                 <div class="detail-row" data-ni="otc">
                     <span class="item-name">상비약</span>
-                    <span class="item-price"><input type="number" value="10" step="1" oninput="calcNonInsurance()"></span>
+                    <span class="item-price"><input type="number" value="3" step="1" oninput="calcNonInsurance()"></span>
                     <span class="item-count"><input type="number" value="0" min="0" oninput="calcNonInsurance()"></span>
                     <span class="item-total">0만원</span>
                 </div>
@@ -1058,14 +1153,8 @@
                     <span class="item-count"><input type="number" value="0" min="0" step="0.1" oninput="calcNonInsurance()"></span>
                     <span class="item-total">0만원</span>
                 </div>
-                <div class="detail-row" data-ni="chuna">
-                    <span class="item-name">추나</span>
-                    <span class="item-price"><input type="number" value="8" step="1" oninput="calcNonInsurance()"></span>
-                    <span class="item-count"><input type="number" value="0" min="0" oninput="calcNonInsurance()"></span>
-                    <span class="item-total">0만원</span>
-                </div>
-                <div class="detail-row" data-ni="manual">
-                    <span class="item-name">도수</span>
+                <div class="detail-row" data-ni="etc">
+                    <span class="item-name">기타</span>
                     <span class="item-price"><input type="number" value="5" step="1" oninput="calcNonInsurance()"></span>
                     <span class="item-count"><input type="number" value="0" min="0" oninput="calcNonInsurance()"></span>
                     <span class="item-total">0만원</span>
@@ -1074,22 +1163,22 @@
 
             <div class="target-comparison" id="nonInsComparison">
                 <div>
-                    <span class="tc-label">일 비급여 합계</span>
-                    <div style="font-size:11px; color:inherit; opacity:0.8; margin-top:2px;">일 <strong id="nonInsDailyCases">0</strong>건</div>
+                    <span class="tc-label">월 비급여 합계</span>
+                    <div style="font-size:11px; color:inherit; opacity:0.8; margin-top:2px;">월 <strong id="nonInsMonthlyCases">0</strong>건</div>
                 </div>
-                <span class="tc-value" id="nonInsDailyTotal">0만원</span>
+                <span class="tc-value" id="nonInsMonthlyTotal">0만원</span>
             </div>
         </div>
 
         <div class="btn-group">
-            <button class="btn-back" onclick="goToStep('step2')">이전</button>
+            <button class="btn-back" onclick="goToStep('step3')">이전</button>
             <button class="btn-primary" onclick="showResults()">결과 확인하기</button>
         </div>
     </div>
 </div>
 
-<!-- ========== STEP 4: 결과 ========== -->
-<div id="step4" class="step">
+<!-- ========== STEP 5: 결과 ========== -->
+<div id="step5" class="step">
     <div class="container">
         <div class="progress-bar">
             <div class="progress-step done">1</div>
@@ -1098,11 +1187,13 @@
             <div class="progress-line done"></div>
             <div class="progress-step done">3</div>
             <div class="progress-line done"></div>
-            <div class="progress-step active">4</div>
+            <div class="progress-step done">4</div>
+            <div class="progress-line done"></div>
+            <div class="progress-step active">5</div>
         </div>
 
         <div class="result-hero">
-            <div class="label">나의 월 목표매출</div>
+            <div class="label">나의 월 설계매출</div>
             <div class="amount" id="resultTotal">0<span class="unit">만원</span></div>
         </div>
 
@@ -1113,8 +1204,8 @@
                 <div class="ri-sub">급여 환자 기준</div>
             </div>
             <div class="result-item">
-                <div class="ri-label">일 비급여 건수</div>
-                <div class="ri-value" id="resultDailyCases" style="color:#7C3AED;">0건</div>
+                <div class="ri-label">월 비급여 건수</div>
+                <div class="ri-value" id="resultMonthlyCases" style="color:#7C3AED;">0건</div>
                 <div class="ri-sub">비급여 항목 합계</div>
             </div>
             <div class="result-item">
@@ -1127,6 +1218,16 @@
                 <div class="ri-value" id="resultNonIns" style="color:#7C3AED;">0</div>
                 <div class="ri-sub" id="resultNonInsPct">0%</div>
             </div>
+            <div class="result-item">
+                <div class="ri-label">자보 매출</div>
+                <div class="ri-value" id="resultAutoIns" style="color:#374151;">0</div>
+                <div class="ri-sub" id="resultAutoInsPct">0%</div>
+            </div>
+            <div class="result-item">
+                <div class="ri-label">설계 총매출</div>
+                <div class="ri-value" id="resultGrandTotal" style="color:var(--primary);">0</div>
+                <div class="ri-sub">급여+비급여+자보</div>
+            </div>
         </div>
 
         <!-- 상세 요약 테이블 -->
@@ -1137,7 +1238,7 @@
                     <tr>
                         <th>항목</th>
                         <th>객단가</th>
-                        <th>일 건수</th>
+                        <th>건수</th>
                         <th style="text-align:right">월 매출</th>
                     </tr>
                 </thead>
@@ -1165,8 +1266,10 @@
             <button class="btn-cta" onclick="scrollToQR()">경영세션 대기알림 등록하기</button>
         </div>
 
+        <p style="text-align:center; font-size:12px; color:var(--text-secondary); margin-bottom:16px;">※ 본 설계 프로그램의 금액은 대략적인 수치로 참고 바랍니다.</p>
+
         <div class="btn-group" style="margin-bottom:40px;">
-            <button class="btn-back" onclick="goToStep('step3')">이전</button>
+            <button class="btn-back" onclick="goToStep('step4')">이전</button>
             <button class="btn-secondary" onclick="goToStep('landing')" style="flex:1;">처음부터 다시하기</button>
         </div>
     </div>
@@ -1174,9 +1277,7 @@
 
 <script>
 // ===== 사이트 ON/OFF 스위치 =====
-// true = 사이트 열림 | false = 사이트 닫힘
 const SITE_ACTIVE = true;
-
 (function() {
     if (!SITE_ACTIVE) {
         document.getElementById('landing').classList.remove('active');
@@ -1184,6 +1285,13 @@ const SITE_ACTIVE = true;
         document.getElementById('siteClosed').classList.add('active');
     }
 })();
+
+// ===== Constants =====
+const CHUNA_SIMPLE_PRICE = 2.633;
+const CHUNA_COMPLEX_PRICE = 4.445;
+const AUTO_INS_FIRST_PRICE = 9.6;
+const AUTO_INS_REVISIT_PRICE = 9.0;
+const AUTO_INS_HERBAL_PRICE = 10.3;
 
 // ===== State =====
 const state = {
@@ -1199,15 +1307,9 @@ function goToStep(stepId) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById(stepId).classList.add('active');
     window.scrollTo(0, 0);
-
-    if (stepId === 'step2') {
-        updateInsTargets();
-        calcInsurance();
-    }
-    if (stepId === 'step3') {
-        updateNonInsTargets();
-        calcNonInsurance();
-    }
+    if (stepId === 'step2') { updateInsTargets(); calcInsurance(); }
+    if (stepId === 'step3') { updateAutoInsTargets(); calcAutoInsurance(); }
+    if (stepId === 'step4') { updateNonInsTargets(); calcNonInsurance(); }
 }
 
 // ===== Landing =====
@@ -1285,19 +1387,25 @@ function updateInsTargets() {
 }
 
 function calcInsurance() {
-    const categories = ['senior', 'general', 'chuna'];
-    let totalDaily = 0;
-    let totalPatients = 0;
+    const sp = parseFloat(document.getElementById('ins_senior_price').value) || 0;
+    const sc = parseFloat(document.getElementById('ins_senior_count').value) || 0;
+    const gp = parseFloat(document.getElementById('ins_general_price').value) || 0;
+    const gc = parseFloat(document.getElementById('ins_general_count').value) || 0;
+    const scc = parseFloat(document.getElementById('ins_simple_chuna_count').value) || 0;
+    const ccc = parseFloat(document.getElementById('ins_complex_chuna_count').value) || 0;
 
-    categories.forEach(cat => {
-        const price = parseFloat(document.getElementById(`ins_${cat}_price`).value) || 0;
-        const count = parseFloat(document.getElementById(`ins_${cat}_count`).value) || 0;
-        const daily = Math.round(price * count * 10) / 10;
-        totalDaily += daily;
-        totalPatients += count;
-        document.getElementById(`ins_${cat}_total`).textContent = daily + '만원';
-    });
+    const sd = Math.round(sp * sc * 10) / 10;
+    const gd = Math.round(gp * gc * 10) / 10;
+    const scd = Math.round(CHUNA_SIMPLE_PRICE * scc * 10) / 10;
+    const ccd = Math.round(CHUNA_COMPLEX_PRICE * ccc * 10) / 10;
 
+    document.getElementById('ins_senior_total').textContent = sd + '만원';
+    document.getElementById('ins_general_total').textContent = gd + '만원';
+    document.getElementById('ins_simple_chuna_total').textContent = scd + '만원';
+    document.getElementById('ins_complex_chuna_total').textContent = ccd + '만원';
+
+    const totalDaily = sd + gd + scd + ccd;
+    const totalPatients = sc + gc;
     document.getElementById('insDailyTotal').textContent = Math.round(totalDaily) + '만원';
     document.getElementById('insDailyPatients').textContent = totalPatients;
 
@@ -1312,208 +1420,205 @@ function calcInsurance() {
     }
 }
 
-// ===== Step 3: 비급여 =====
-function updateNonInsTargets() {
-    document.getElementById('nonInsTarget').textContent = numberFormat(state.nonInsRevenue) + '만원';
-    const daily = Math.round(state.nonInsRevenue / state.workingDays);
-    document.getElementById('nonInsDailyTarget').textContent = numberFormat(daily) + '만원';
+// ===== Step 3: 자보 =====
+function updateAutoInsTargets() {
+    document.getElementById('autoInsTarget').textContent = numberFormat(state.autoInsRevenue) + '만원';
 }
 
-function calcNonInsurance() {
-    const rows = document.querySelectorAll('#step3 .detail-row[data-ni]');
-    let totalDaily = 0;
-    let totalCases = 0;
+function calcAutoInsurance() {
+    const fc = parseFloat(document.getElementById('auto_first_count').value) || 0;
+    const rv = parseFloat(document.getElementById('auto_revisit_per').value) || 0;
+    const hb = parseFloat(document.getElementById('auto_herbal_per').value) || 0;
 
-    rows.forEach(row => {
-        const inputs = row.querySelectorAll('input');
-        const price = parseFloat(inputs[0].value) || 0;
-        const count = parseFloat(inputs[1].value) || 0;
-        const daily = Math.round(price * count * 10) / 10;
-        totalDaily += daily;
-        totalCases += count;
-        row.querySelector('.item-total').textContent = daily + '만원';
-    });
+    const fr = Math.round(fc * AUTO_INS_FIRST_PRICE * 10) / 10;
+    const rr = Math.round(fc * rv * AUTO_INS_REVISIT_PRICE * 10) / 10;
+    const hr = Math.round(fc * hb * AUTO_INS_HERBAL_PRICE * 10) / 10;
+    const total = Math.round((fr + rr + hr) * 10) / 10;
 
-    document.getElementById('nonInsDailyTotal').textContent = Math.round(totalDaily * 10) / 10 + '만원';
-    document.getElementById('nonInsDailyCases').textContent = totalCases;
+    document.getElementById('autoInsFirstRev').textContent = numberFormat(fr) + '만원';
+    document.getElementById('autoInsRevisitRev').textContent = numberFormat(rr) + '만원';
+    document.getElementById('autoInsHerbalRev').textContent = numberFormat(hr) + '만원';
+    document.getElementById('autoInsTotal').textContent = numberFormat(total) + '만원';
+    document.getElementById('autoInsBreakdown').style.display = fc > 0 ? 'block' : 'none';
 
-    const targetDaily = Math.round(state.nonInsRevenue / state.workingDays);
-    const comp = document.getElementById('nonInsComparison');
-    if (Math.abs(Math.round(totalDaily) - targetDaily) <= 3) {
+    const comp = document.getElementById('autoInsComparison');
+    const target = state.autoInsRevenue;
+    if (target > 0 && Math.abs(total - target) <= target * 0.05) {
         comp.className = 'target-comparison match';
-    } else if (Math.round(totalDaily) > targetDaily) {
+    } else if (total > target) {
         comp.className = 'target-comparison over';
     } else {
         comp.className = 'target-comparison under';
     }
 }
 
-// ===== Step 4: Results =====
-function showResults() {
-    // 기본 정보
-    const target = state.targetRevenue;
-    document.getElementById('resultTotal').innerHTML = numberFormat(target) + '<span class="unit">만원</span>';
+// ===== Step 4: 비급여 (월 기준) =====
+function updateNonInsTargets() {
+    document.getElementById('nonInsTarget').textContent = numberFormat(state.nonInsRevenue) + '만원';
+}
 
-    // 급여 환자수
-    const seniorCount = parseFloat(document.getElementById('ins_senior_count').value) || 0;
-    const generalCount = parseFloat(document.getElementById('ins_general_count').value) || 0;
-    const chunaCount = parseFloat(document.getElementById('ins_chuna_count').value) || 0;
-    const totalPatients = seniorCount + generalCount + chunaCount;
+function calcNonInsurance() {
+    const rows = document.querySelectorAll('#step4 .detail-row[data-ni]');
+    let totalMonthly = 0;
+    let totalCases = 0;
+
+    rows.forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        const price = parseFloat(inputs[0].value) || 0;
+        const count = parseFloat(inputs[1].value) || 0;
+        const monthly = Math.round(price * count * 10) / 10;
+        totalMonthly += monthly;
+        totalCases += count;
+        row.querySelector('.item-total').textContent = monthly + '만원';
+    });
+
+    document.getElementById('nonInsMonthlyTotal').textContent = Math.round(totalMonthly) + '만원';
+    document.getElementById('nonInsMonthlyCases').textContent = totalCases;
+
+    const comp = document.getElementById('nonInsComparison');
+    const target = state.nonInsRevenue;
+    if (target > 0 && Math.abs(Math.round(totalMonthly) - target) <= target * 0.05) {
+        comp.className = 'target-comparison match';
+    } else if (Math.round(totalMonthly) > target) {
+        comp.className = 'target-comparison over';
+    } else {
+        comp.className = 'target-comparison under';
+    }
+}
+
+// ===== Step 5: Results =====
+function showResults() {
+    const insMonthly = calcInsMonthly();
+    const autoInsMonthly = calcAutoInsMonthly();
+    const nonInsMonthly = calcNonInsMonthly();
+    const grandTotal = insMonthly + autoInsMonthly + nonInsMonthly;
+
+    document.getElementById('resultTotal').innerHTML = numberFormat(grandTotal) + '<span class="unit">만원</span>';
+
+    const sc = parseFloat(document.getElementById('ins_senior_count').value) || 0;
+    const gc = parseFloat(document.getElementById('ins_general_count').value) || 0;
+    const totalPatients = sc + gc;
     document.getElementById('resultDailyPatients').textContent = totalPatients + '명';
 
-    // 비급여 건수
     let totalNonInsCases = 0;
-    document.querySelectorAll('#step3 .detail-row[data-ni]').forEach(row => {
+    document.querySelectorAll('#step4 .detail-row[data-ni]').forEach(row => {
         totalNonInsCases += parseFloat(row.querySelectorAll('input')[1].value) || 0;
     });
-    document.getElementById('resultDailyCases').textContent = Math.round(totalNonInsCases * 10) / 10 + '건';
-
-    // 급여/비급여 매출
-    const insMonthly = calcInsMonthly();
-    const nonInsMonthly = calcNonInsMonthly();
-    const totalActual = insMonthly + nonInsMonthly + state.autoInsRevenue;
+    document.getElementById('resultMonthlyCases').textContent = Math.round(totalNonInsCases) + '건';
 
     document.getElementById('resultIns').textContent = numberFormat(insMonthly) + '만';
     document.getElementById('resultNonIns').textContent = numberFormat(nonInsMonthly) + '만';
-    document.getElementById('resultInsPct').textContent = totalActual > 0 ? Math.round(insMonthly/totalActual*100) + '%' : '0%';
-    document.getElementById('resultNonInsPct').textContent = totalActual > 0 ? Math.round(nonInsMonthly/totalActual*100) + '%' : '0%';
+    document.getElementById('resultAutoIns').textContent = numberFormat(autoInsMonthly) + '만';
+    document.getElementById('resultGrandTotal').textContent = numberFormat(grandTotal) + '만';
+    document.getElementById('resultInsPct').textContent = grandTotal > 0 ? Math.round(insMonthly/grandTotal*100) + '%' : '0%';
+    document.getElementById('resultNonInsPct').textContent = grandTotal > 0 ? Math.round(nonInsMonthly/grandTotal*100) + '%' : '0%';
+    document.getElementById('resultAutoInsPct').textContent = grandTotal > 0 ? Math.round(autoInsMonthly/grandTotal*100) + '%' : '0%';
 
-    // 상세 테이블
-    buildSummaryTable(insMonthly, nonInsMonthly);
-
-    // 액션 아이템
-    buildActionItems(totalPatients, totalNonInsCases, chunaCount, insMonthly, nonInsMonthly);
-
-    goToStep('step4');
+    buildSummaryTable(insMonthly, autoInsMonthly, nonInsMonthly);
+    buildActionItems(totalPatients, totalNonInsCases, insMonthly, autoInsMonthly, nonInsMonthly);
+    goToStep('step5');
 }
 
 function calcInsMonthly() {
-    const categories = ['senior', 'general', 'chuna'];
-    let total = 0;
-    categories.forEach(cat => {
-        const price = parseFloat(document.getElementById(`ins_${cat}_price`).value) || 0;
-        const count = parseFloat(document.getElementById(`ins_${cat}_count`).value) || 0;
-        total += price * count * state.workingDays;
-    });
-    return Math.round(total);
+    const sp = parseFloat(document.getElementById('ins_senior_price').value) || 0;
+    const sc = parseFloat(document.getElementById('ins_senior_count').value) || 0;
+    const gp = parseFloat(document.getElementById('ins_general_price').value) || 0;
+    const gc = parseFloat(document.getElementById('ins_general_count').value) || 0;
+    const scc = parseFloat(document.getElementById('ins_simple_chuna_count').value) || 0;
+    const ccc = parseFloat(document.getElementById('ins_complex_chuna_count').value) || 0;
+    return Math.round(sp*sc*state.workingDays + gp*gc*state.workingDays + CHUNA_SIMPLE_PRICE*scc*state.workingDays + CHUNA_COMPLEX_PRICE*ccc*state.workingDays);
+}
+
+function calcAutoInsMonthly() {
+    const fc = parseFloat(document.getElementById('auto_first_count').value) || 0;
+    const rv = parseFloat(document.getElementById('auto_revisit_per').value) || 0;
+    const hb = parseFloat(document.getElementById('auto_herbal_per').value) || 0;
+    return Math.round(fc*AUTO_INS_FIRST_PRICE + fc*rv*AUTO_INS_REVISIT_PRICE + fc*hb*AUTO_INS_HERBAL_PRICE);
 }
 
 function calcNonInsMonthly() {
     let total = 0;
-    document.querySelectorAll('#step3 .detail-row[data-ni]').forEach(row => {
+    document.querySelectorAll('#step4 .detail-row[data-ni]').forEach(row => {
         const inputs = row.querySelectorAll('input');
-        const price = parseFloat(inputs[0].value) || 0;
-        const count = parseFloat(inputs[1].value) || 0;
-        total += price * count * state.workingDays;
+        total += (parseFloat(inputs[0].value)||0) * (parseFloat(inputs[1].value)||0);
     });
     return Math.round(total);
 }
 
-function buildSummaryTable(insMonthly, nonInsMonthly) {
+function buildSummaryTable(insMonthly, autoInsMonthly, nonInsMonthly) {
     const tbody = document.getElementById('summaryBody');
     let html = '';
+    const wd = state.workingDays;
 
-    // 급여
     html += '<tr class="cat-header"><td colspan="4">급여</td></tr>';
-    const insItems = [
-        { name: '65세 이상', priceId: 'ins_senior_price', countId: 'ins_senior_count' },
-        { name: '65세 미만 (비추나)', priceId: 'ins_general_price', countId: 'ins_general_count' },
-        { name: '65세 미만 (추나)', priceId: 'ins_chuna_price', countId: 'ins_chuna_count' }
-    ];
-    insItems.forEach(item => {
-        const price = parseFloat(document.getElementById(item.priceId).value) || 0;
-        const count = parseFloat(document.getElementById(item.countId).value) || 0;
-        const monthly = Math.round(price * count * state.workingDays);
-        html += `<tr><td>${item.name}</td><td>${price}만원</td><td>${count}명/일</td><td style="text-align:right">${numberFormat(monthly)}만원</td></tr>`;
+    [{n:'65세 이상',p:'ins_senior_price',c:'ins_senior_count'},{n:'65세 미만',p:'ins_general_price',c:'ins_general_count'}].forEach(item => {
+        const price = parseFloat(document.getElementById(item.p).value)||0;
+        const count = parseFloat(document.getElementById(item.c).value)||0;
+        html += `<tr><td>${item.n}</td><td>${price}만원</td><td>${count}명/일</td><td style="text-align:right">${numberFormat(Math.round(price*count*wd))}만원</td></tr>`;
     });
+    const scc = parseFloat(document.getElementById('ins_simple_chuna_count').value)||0;
+    const ccc = parseFloat(document.getElementById('ins_complex_chuna_count').value)||0;
+    if(scc>0) html += `<tr><td>단순추나</td><td>26,330원</td><td>${scc}건/일</td><td style="text-align:right">${numberFormat(Math.round(CHUNA_SIMPLE_PRICE*scc*wd))}만원</td></tr>`;
+    if(ccc>0) html += `<tr><td>복잡추나</td><td>44,450원</td><td>${ccc}건/일</td><td style="text-align:right">${numberFormat(Math.round(CHUNA_COMPLEX_PRICE*ccc*wd))}만원</td></tr>`;
     html += `<tr style="background:#EFF6FF"><td colspan="3"><strong>급여 소계</strong></td><td style="text-align:right"><strong>${numberFormat(insMonthly)}만원</strong></td></tr>`;
 
-    // 비급여
+    if(autoInsMonthly > 0) {
+        html += '<tr class="cat-header"><td colspan="4">자보</td></tr>';
+        const fc = parseFloat(document.getElementById('auto_first_count').value)||0;
+        const rv = parseFloat(document.getElementById('auto_revisit_per').value)||0;
+        const hb = parseFloat(document.getElementById('auto_herbal_per').value)||0;
+        html += `<tr><td>초진</td><td>9.6만원</td><td>${fc}명/월</td><td style="text-align:right">${numberFormat(Math.round(fc*AUTO_INS_FIRST_PRICE))}만원</td></tr>`;
+        if(rv>0) html += `<tr><td>추가내원</td><td>9.0만원</td><td>${fc}×${rv}회</td><td style="text-align:right">${numberFormat(Math.round(fc*rv*AUTO_INS_REVISIT_PRICE))}만원</td></tr>`;
+        if(hb>0) html += `<tr><td>한약처방</td><td>10.3만원</td><td>${fc}×${hb}회</td><td style="text-align:right">${numberFormat(Math.round(fc*hb*AUTO_INS_HERBAL_PRICE))}만원</td></tr>`;
+        html += `<tr style="background:#F9FAFB"><td colspan="3"><strong>자보 소계</strong></td><td style="text-align:right"><strong>${numberFormat(autoInsMonthly)}만원</strong></td></tr>`;
+    }
+
     html += '<tr class="cat-header"><td colspan="4">비급여</td></tr>';
-    document.querySelectorAll('#step3 .detail-row[data-ni]').forEach(row => {
+    document.querySelectorAll('#step4 .detail-row[data-ni]').forEach(row => {
         const name = row.querySelector('.item-name').textContent;
         const inputs = row.querySelectorAll('input');
-        const price = parseFloat(inputs[0].value) || 0;
-        const count = parseFloat(inputs[1].value) || 0;
-        const monthly = Math.round(price * count * state.workingDays);
-        if (count > 0) {
-            html += `<tr><td>${name}</td><td>${price}만원</td><td>${count}건/일</td><td style="text-align:right">${numberFormat(monthly)}만원</td></tr>`;
-        }
+        const price = parseFloat(inputs[0].value)||0;
+        const count = parseFloat(inputs[1].value)||0;
+        if(count>0) html += `<tr><td>${name}</td><td>${price}만원</td><td>${count}건/월</td><td style="text-align:right">${numberFormat(Math.round(price*count))}만원</td></tr>`;
     });
     html += `<tr style="background:#F5F3FF"><td colspan="3"><strong>비급여 소계</strong></td><td style="text-align:right"><strong>${numberFormat(nonInsMonthly)}만원</strong></td></tr>`;
 
-    // 자보
-    if (state.autoInsRevenue > 0) {
-        html += '<tr class="cat-header"><td colspan="4">자보</td></tr>';
-        html += `<tr><td>자동차보험</td><td>-</td><td>-</td><td style="text-align:right">${numberFormat(state.autoInsRevenue)}만원</td></tr>`;
-    }
-
-    // 합계
-    const grandTotal = insMonthly + nonInsMonthly + state.autoInsRevenue;
-    html += `<tr class="total"><td colspan="3">월 총 매출</td><td style="text-align:right">${numberFormat(grandTotal)}만원</td></tr>`;
-
+    html += `<tr class="total"><td colspan="3">월 총 매출</td><td style="text-align:right">${numberFormat(insMonthly+autoInsMonthly+nonInsMonthly)}만원</td></tr>`;
     tbody.innerHTML = html;
 }
 
-function buildActionItems(totalPatients, totalNonInsCases, chunaCount, insMonthly, nonInsMonthly) {
+function buildActionItems(totalPatients, totalNonInsCases, insMonthly, autoInsMonthly, nonInsMonthly) {
     const list = document.getElementById('actionItemsList');
     const items = [];
-    const totalMonthly = insMonthly + nonInsMonthly + state.autoInsRevenue;
+    const totalMonthly = insMonthly + autoInsMonthly + nonInsMonthly;
 
-    // 일 환자수
-    items.push(`하루 평균 <strong>${totalPatients}명</strong>의 환자를 진료해야 합니다.`);
+    items.push(`하루 평균 <strong>${totalPatients}명</strong>의 환자를 진료해야 합니다. (추나 제외)`);
+    const mp = totalPatients * state.workingDays;
+    items.push(`월 <strong>${numberFormat(mp)}명</strong>의 환자 내원이 필요합니다.`);
+    items.push(`월 신규 환자 약 <strong>${Math.round(mp*0.1)}명</strong> 유입이 필요합니다. (전체의 10% 가정)`);
 
-    // 월 환자수
-    const monthlyPatients = totalPatients * state.workingDays;
-    items.push(`월 <strong>${numberFormat(monthlyPatients)}명</strong>의 환자 내원이 필요합니다.`);
+    const scc = parseFloat(document.getElementById('ins_simple_chuna_count').value)||0;
+    const ccc = parseFloat(document.getElementById('ins_complex_chuna_count').value)||0;
+    if(scc+ccc>0) items.push(`추나를 하루 <strong>${scc+ccc}건</strong> 시행해야 합니다. (단순 ${scc} + 복잡 ${ccc})`);
 
-    // 신규 환자 (약 10%)
-    const newPatients = Math.round(monthlyPatients * 0.1);
-    items.push(`월 신규 환자 약 <strong>${newPatients}명</strong> 유입이 필요합니다. (전체의 10% 가정)`);
+    const afc = parseFloat(document.getElementById('auto_first_count').value)||0;
+    if(afc>0) items.push(`월 자보 초진 <strong>${afc}명</strong>을 확보해야 합니다.`);
 
-    // 추나
-    if (chunaCount > 0) {
-        items.push(`추나 환자를 하루 <strong>${chunaCount}명</strong> 확보해야 합니다.`);
-        items.push(`검진실에 <strong>체형측정기를 도입</strong>하고, 체형이 틀어진 환자에게 체형 측정을 권유하세요.`);
+    if(totalMonthly>0) {
+        const nip = Math.round(nonInsMonthly/totalMonthly*100);
+        items.push(`비급여 매출 비중이 <strong>${nip}%</strong>입니다.`);
     }
+    if(totalNonInsCases>0) items.push(`월 비급여 <strong>${Math.round(totalNonInsCases)}건</strong>을 달성해야 합니다.`);
 
-    // 비급여 비중
-    if (totalMonthly > 0) {
-        const nonInsPct = Math.round(nonInsMonthly / totalMonthly * 100);
-        items.push(`비급여 매출 비중이 <strong>${nonInsPct}%</strong>입니다. 비급여 진료 역량 강화가 핵심입니다.`);
-    }
-
-    // 비급여 건수
-    if (totalNonInsCases > 0) {
-        items.push(`하루 비급여 <strong>${Math.round(totalNonInsCases * 10) / 10}건</strong>을 달성해야 합니다.`);
-    }
-
-    // 비급여 항목별 액션
-    const niRows = document.querySelectorAll('#step3 .detail-row[data-ni]');
-    niRows.forEach(row => {
+    document.querySelectorAll('#step4 .detail-row[data-ni]').forEach(row => {
         const name = row.querySelector('.item-name').textContent;
-        const count = parseFloat(row.querySelectorAll('input')[1].value) || 0;
-        if (count > 0) {
-            const actions = {
-                '공진단': '공진단 정기 구매 고객 관리 시스템을 마련하세요.',
-                '한약': '한약 처방 상담 역량을 강화하고 복약 지도 체계를 구축하세요.',
-                '다이어트': '다이어트 프로그램 홍보 및 체계적 상담 프로세스를 구축하세요.',
-                '약침': '약침 치료 프로토콜을 정립하고 환자 교육 자료를 준비하세요.',
-                '피부': '피부 진료 프로그램과 시술 메뉴를 체계화하세요.',
-                '녹용': '녹용 한약 시즌 마케팅과 VIP 고객 관리에 집중하세요.',
-                '추나': '추나 비급여 패키지 상품을 개발하세요.',
-                '도수': '도수치료 전문 인력 확보와 시설을 준비하세요.',
-                '상비약': '상비약 진열 및 데스크 추천 프로세스를 만드세요.'
-            };
-            if (actions[name]) {
-                items.push(actions[name]);
-            }
+        const count = parseFloat(row.querySelectorAll('input')[1].value)||0;
+        if(count>0) {
+            const actions = {'공진단':'공진단 정기 구매 고객 관리 시스템을 마련하세요.','한약':'한약 처방 상담 역량을 강화하고 복약 지도 체계를 구축하세요.','다이어트':'다이어트 프로그램 홍보 및 체계적 상담 프로세스를 구축하세요.','약침':'약침 치료 프로토콜을 정립하고 환자 교육 자료를 준비하세요.','피부':'피부 진료 프로그램과 시술 메뉴를 체계화하세요.','녹용':'녹용 한약 시즌 마케팅과 VIP 고객 관리에 집중하세요.','상비약':'상비약 진열 및 데스크 추천 프로세스를 만드세요.'};
+            if(actions[name]) items.push(actions[name]);
         }
     });
-
-    list.innerHTML = items.map(text =>
-        `<div class="action-item"><div class="action-dot"></div><div class="action-text">${text}</div></div>`
-    ).join('');
+    list.innerHTML = items.map(t=>`<div class="action-item"><div class="action-dot"></div><div class="action-text">${t}</div></div>`).join('');
 }
 
 function scrollToQR() {
